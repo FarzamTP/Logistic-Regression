@@ -1,9 +1,0 @@
-.gitignore
-.idea
-venv/*
-__pycache__
-gitlr
-lr.py
-gitLR.py
-normalized_data.txt
-webLR.py
