@@ -1,5 +1,9 @@
+.gitignore
 .idea
 venv/*
 __pycache__
 gitlr
-lr
+lr.py
+gitLR.py
+normalized_data.txt
+webLR.py

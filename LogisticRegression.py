@@ -13,26 +13,27 @@ class LogisticRegression:
         self.cost_history = []
         self.X = X
         self.y = y
-        self.theta = np.zeros(self.X.shape[1] + 1)
+        self.theta = np.ones(self.X.shape[1] + 1)
         self.X = np.c_[np.ones([np.shape(self.X)[0], 1]), self.X]
         self.Lambda = Lambda
         self.file_path = file_name
 
     # Sigmoid function declaration that takes X and theta as input.
     def __sigmoid(self, X, theta):
-        return np.maximum(np.minimum(1 / (1 + np.exp((-np.dot(X, theta)))), 0.9999), 0.0001)
+        return 1 / (1 + np.exp((-np.dot(X, theta))))
 
     # plotting positive and negative data points.
     def plot_data(self):
         plt.plot(self.pos_X, self.pos_y, 'ro')
         plt.plot(self.neg_X, self.neg_y, 'bo')
-        plt.xlabel('Data')
-        plt.ylabel('Label')
+        plt.xlabel('Exam 1 score')
+        plt.ylabel('Exam 2 score')
+        plt.legend(['Not Admitted', 'Admitted'])
         plt.show()
 
     def plot_line(self):
-        x = np.linspace(min(np.append(self.neg_X, self.pos_X)) - 5, max(np.append(self.neg_X, self.pos_X)) + 5)
-        y = self.theta[0] + self.theta[1] * x
+        x = np.linspace(min(np.append(self.neg_X, self.pos_X)), max(np.append(self.neg_X, self.pos_X)))
+        y = self.theta[0] + self.theta[1] * x + self.theta[2] * x
         plt.plot(self.pos_X, self.pos_y, 'ro')
         plt.plot(self.neg_X, self.neg_y, 'bo')
         plt.plot(x, y, '-r')
