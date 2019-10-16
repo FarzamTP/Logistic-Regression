@@ -1,0 +1,4 @@
+venv
+.idea
+normalized_data.txt
+stat.py
