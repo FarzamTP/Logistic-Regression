@@ -13,17 +13,25 @@ class LogisticRegression:
         self.cost_history = []
         self.Lambda = Lambda
 
+    # adds ones row at the beginning of X array.
     def __add_intercept(self, X):
         intercept = np.ones((X.shape[0], 1))
         return np.concatenate((intercept, X), axis=1)
 
+    # Sigmoid function that returns values between 0, 1.
     def __sigmoid(self, z):
         return 1 / (1 + np.exp(-z))
 
+    # calculating loss of the given h, y according to theta and regularization value Lambda.
     def __loss(self, h, y):
         m = y.shape[0]
         return (-y * np.log(h) - (1 - y) * np.log(1 - h)).mean() + self.Lambda/(2 * m) * sum(self.theta ** 2)
 
+    # training process that adds intercept if add_intercept arg in set True.
+    # declares theta as zero np array in shape on columns of X.
+    # for number of iterations updates weights theta according to gradient descent algorithm.
+    # which takes derivative of h(x) with respect to Theta and sets the equation to 0.
+    # then computes theta.
     def fit(self, X, y):
         if self.fit_intercept:
             X = self.__add_intercept(X)
@@ -44,12 +52,16 @@ class LogisticRegression:
                 self.cost_history.append(loss)
                 print(f'loss: {loss} \t')
 
+    # computes sigmoid function according to given X.
     def predict_prob(self, X):
         if self.fit_intercept:
             X = self.__add_intercept(X)
 
         return self.__sigmoid(np.dot(X, self.theta))
 
+    # according to threshold, if sigmoid function value is higher than that,
+    # the prediction will be mapped to 1.
+    # otherwise, it will be 0.
     def predict(self, X, threshold):
         return self.predict_prob(X) >= threshold
 
@@ -59,24 +71,24 @@ class LogisticRegression:
         plt.plot(self.neg_X, self.neg_y, 'bo')
         plt.xlabel('Exam 1 score')
         plt.ylabel('Exam 2 score')
-        plt.legend(['Not Admitted', 'Admitted'])
+        plt.legend(['Admitted', 'Not Admitted'])
         plt.show()
 
+    # plots decision boundary according to theta.
     def plot_line(self, X, y):
         x_values = [np.min(self.neg_X), np.max(self.pos_X)]
         y_values = - (self.theta[0] + np.dot(self.theta[1], x_values)) / self.theta[2]
         plt.plot(self.pos_X, self.pos_y, 'ro')
         plt.plot(self.neg_X, self.neg_y, 'bo')
-        # plt.plot(X, y, '-r')
         plt.plot(x_values, y_values, label='Decision Boundary')
         plt.xlabel('Marks in 1st Exam')
         plt.ylabel('Marks in 2nd Exam')
         plt.legend()
         plt.show()
 
+    # Reads data from file and separates X , y into 2 classes
+    # according to their label's.
     def __read_data(self):
-        # Reads data from file and separates X , y into 2 classes
-        # according to their label's.
         pos_X = []
         pos_y = []
 
@@ -100,12 +112,15 @@ class LogisticRegression:
         self.X = np.asarray(X)
         return np.asarray(pos_X), np.asarray(pos_y), np.asarray(neg_X), np.asarray(neg_y), labels
 
+    # plots cost_history values that get updated in every iteration.
     def plot_cost(self):
         plt.plot(self.cost_history[10:], 'bo')
         plt.xlabel('#Iteration')
         plt.ylabel('Cost')
         plt.show()
 
+    # Logistic regression model implemented in Sklearn fits data and returns
+    # model coefficients and intercept.
     def compare_to_Sklearn(self, X, y):
         model = LR()
         model.fit(X, y)

@@ -9,17 +9,28 @@ from sklearn.linear_model import LogisticRegression as skLR
 
 import numpy as np
 
+
 # reads file and generates X, y.
-with open('data.txt', 'r') as f:
-    X = []
-    y = []
-    for line in f.readlines():
-        X.append([float(line.split(',')[0]), float(line.split(',')[1])])
-        y.append(float(line.split(',')[2]))
+def read_data_from_file(file_path):
+    with open(file_path, 'r') as f:
+        X = []
+        y = []
+        for line in f.readlines():
+            X.append([float(line.split(',')[0]), float(line.split(',')[1])])
+            y.append(float(line.split(',')[2]))
+    return X, y
+
+
+# calling read from file function that returns X, y as numpy arrays.
+X, y = read_data_from_file('data.txt')
 
 # converting X , y to numpy arrays
 X = np.asarray(X)
 y = np.asarray(y)
+
+# prints X, y shapes.
+print('X shape:', X.shape)
+print('y shape:', y.shape)
 
 # declaring a list in size of selected dataset containing 0 to size of dataset.
 indices = list(range(len(X)))
@@ -27,6 +38,7 @@ indices = list(range(len(X)))
 # shuffling indices array.
 np.random.shuffle(indices)
 
+# number of data samples we want to train
 num_training_samples = 80
 
 # splitting train data arrays according to indices array.
@@ -45,7 +57,7 @@ sk_model.fit(x_train, y_train)
 
 # declaring my object of class logistic regression.
 # LogisticRegression(X, y, num_iter=100, learning_rate=0.01, verbose=True)
-model = LogisticRegression(num_iter=100000000, lr=0.01, Lambda=0, verbose=True)
+model = LogisticRegression(num_iter=1000000, lr=0.01, Lambda=0, verbose=True)
 
 # printing number of train set data points.
 print()
