@@ -10,14 +10,12 @@ not 0.
 
 # Sample Output
 Here you can see how the algorithm acts and plots cost history:
-![Image of cost function in non-regularized algorithm]
-(https://github.com/FarzamTP/Logistic-regression/blob/master/figures/(cost-func)%20non-regularized.png)
+![Image of cost function in non-regularized algorithm](https://github.com/FarzamTP/Logistic-regression/blob/master/figures/(cost-func)%20non-regularized.png)
 
 As you see the cost values reduced over time and almost converged to 0.
 
 And here you can see the decision boundary:
-![Image of decision boundary over non-regularized algorithm]
-(https://github.com/FarzamTP/Logistic-regression/blob/master/figures/(Decision%20Boundary)%20non-regularized.png)
+![Image of decision boundary over non-regularized algorithm](https://github.com/FarzamTP/Logistic-regression/blob/master/figures/(Decision%20Boundary)%20non-regularized.png)
 
 # Conclusion
 At last but not least, I highly appreciate any comment over this project.
